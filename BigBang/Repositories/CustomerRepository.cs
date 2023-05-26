@@ -89,7 +89,6 @@ namespace BigBang.Repositories
         {
             var filteredHotels = _customerContext.Hotels.AsQueryable();
 
-            // Apply filters based on the provided criteria
             if (!string.IsNullOrEmpty(HotelLocation))
             {
                 filteredHotels = filteredHotels.Where(h => h.HotelLocation.Contains(HotelLocation));
@@ -104,7 +103,6 @@ namespace BigBang.Repositories
         {
             var filteredHotels = _customerContext.Hotels.AsQueryable();
 
-            // Apply filters based on the provided criteria
             if (!string.IsNullOrEmpty(HotelAmenities))
             {
                 filteredHotels = filteredHotels.Where(h => h.HotelAmenities.Contains(HotelAmenities));

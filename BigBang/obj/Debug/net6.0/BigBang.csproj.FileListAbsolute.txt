@@ -90,3 +90,5 @@ C:\Users\kirth\source\repos\BigBang\BigBang\obj\Debug\net6.0\refint\BigBang.dll
 C:\Users\kirth\source\repos\BigBang\BigBang\obj\Debug\net6.0\BigBang.pdb
 C:\Users\kirth\source\repos\BigBang\BigBang\obj\Debug\net6.0\BigBang.genruntimeconfig.cache
 C:\Users\kirth\source\repos\BigBang\BigBang\obj\Debug\net6.0\ref\BigBang.dll
+C:\Users\kirth\source\repos\BigBang\BigBang\bin\Debug\net6.0\HotelManagement.dll
+C:\Users\kirth\source\repos\BigBang\BigBang\bin\Debug\net6.0\HotelManagement.pdb

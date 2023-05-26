@@ -23,7 +23,6 @@ builder.Services.AddScoped<IRoom, RoomRepository>();
 builder.Services.AddScoped<IEmployee, EmployeeRepository>();
 builder.Services.AddScoped<ICustomer, CustomerRepository>();
 builder.Services.AddScoped<IBooking, BookingRepository>();
-// Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -31,7 +30,6 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 
-// Adding Jwt Bearer
 .AddJwtBearer(options =>
 {
     options.SaveToken = true;
@@ -47,7 +45,6 @@ builder.Services.AddAuthentication(options =>
 });
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
