@@ -1,10 +1,12 @@
 ﻿using BigBang.Models;
 using BigBang.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BigBang.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomsController : ControllerBase

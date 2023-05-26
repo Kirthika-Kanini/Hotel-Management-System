@@ -19,7 +19,7 @@ namespace BigBang.Repositories
         {
             try
             {
-                return _employeeContext.Employees.ToList();
+                return _employeeContext.Employees.Include(x => x.Hotel).ToList();
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace BigBang.Repositories
             }
         }
 
-        public int GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
+        public string GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace BigBang.Repositories
                              where room.RoomId == RoomId && hotel.HotelId == HotelId
                              select room.RoomCount).FirstOrDefault();
 
-                return count;
+                return "Number of rooms available are: " + count;
             }
             catch (Exception ex)
             {

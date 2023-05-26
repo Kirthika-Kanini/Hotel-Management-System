@@ -18,7 +18,7 @@ namespace BigBang.Repositories
         {
             try
             {
-                return _roomContext.Rooms.ToList();
+                return _roomContext.Rooms.Include(x => x.Hotel).ToList();
             }
             catch (Exception ex)
             {

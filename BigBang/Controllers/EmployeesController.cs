@@ -1,10 +1,12 @@
 ﻿using BigBang.Models;
 using BigBang.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BigBang.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
@@ -42,7 +44,7 @@ namespace BigBang.Controllers
             return emp.DeleteEmployee(EmployeeId);
         }
         [HttpGet("roomcount")]
-        public int GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
+        public string GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
         {
 
             return emp.GetRoomCountByRoomIdAndHotelId(RoomId, HotelId);

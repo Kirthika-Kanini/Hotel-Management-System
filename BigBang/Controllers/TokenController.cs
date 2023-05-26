@@ -1,4 +1,5 @@
 ﻿using BigBang.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace BigBang.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
