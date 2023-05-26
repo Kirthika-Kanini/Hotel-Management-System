@@ -39,17 +39,37 @@ namespace BigBang.Repositories
             }
         }
 
+        
+
         public Booking PostBooking(Booking booking)
         {
             try
             {
+                booking.CreatedDT = DateTime.UtcNow.ToString();
                 var b = _bookingContext.Hotels.Find(booking.Hotel.HotelId);
                 booking.Hotel = b;
-                var room = _bookingContext.Rooms.Find(booking.Room.RoomId);
-                booking.Room = room;
-
                 var customer = _bookingContext.Customers.Find(booking.Customer.CustomerId);
                 booking.Customer = customer;
+                var room = _bookingContext.Rooms.Find(booking.Room.RoomId);
+                if (room != null)
+                {
+                    if (room.RoomCount > 0)
+                    {
+                        room.RoomCount--; 
+                        _bookingContext.Entry(room).State = EntityState.Modified; 
+
+                      
+                        booking.Room = room;
+                    }
+                    else
+                    {
+                        throw new Exception("No available rooms for booking.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Invalid room ID.");
+                }
 
                 _bookingContext.Add(booking);
                 _bookingContext.SaveChanges();
@@ -60,6 +80,7 @@ namespace BigBang.Repositories
                 throw new Exception("Failed to create booking.", ex);
             }
         }
+
 
         public Booking PutBooking(int BookingId, Booking booking)
         {
@@ -81,15 +102,33 @@ namespace BigBang.Repositories
         {
             try
             {
-                var b = _bookingContext.Bookings.Find(BookingId);
-                _bookingContext.Bookings.Remove(b);
-                _bookingContext.SaveChanges();
-                return b;
+                var booking = _bookingContext.Bookings.Include(b => b.Room).FirstOrDefault(b => b.BookingId == BookingId);
+
+                if (booking != null)
+                {
+                    var room = booking.Room;
+
+                    if (room != null)
+                    {
+                        room.RoomCount++;
+                        _bookingContext.Entry(room).State = EntityState.Modified; 
+                    }
+
+                    _bookingContext.Bookings.Remove(booking);
+                    _bookingContext.SaveChanges();
+
+                    return booking;
+                }
+                else
+                {
+                    throw new Exception("Booking not found.");
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("Failed to delete booking.", ex);
             }
         }
+
     }
 }

@@ -42,6 +42,7 @@ namespace BigBang.Repositories
         {
             try
             {
+                customer.CreatedDT = DateTime.UtcNow.ToString();
                 var cus = _customerContext.Hotels.Find(customer.Hotel.HotelId);
                 customer.Hotel = cus;
                 _customerContext.Add(customer);
@@ -127,6 +128,22 @@ namespace BigBang.Repositories
             catch (Exception ex)
             {
                 throw new Exception("Failed to get room count by RoomId and HotelId.", ex);
+            }
+        }
+        public IEnumerable<Room> GetRoomsByPriceRange(int minPrice, int maxPrice)
+        {
+            try
+            {
+                var rooms = _customerContext.Rooms
+                    .Include(r => r.Hotel)
+                    .Where(r => r.RoomPrice >= minPrice && r.RoomPrice <= maxPrice)
+                    .ToList();
+
+                return rooms;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to retrieve rooms by price range.", ex);
             }
         }
     }

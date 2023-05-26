@@ -19,7 +19,8 @@ namespace BigBang.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HotelName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HotelLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HotelAmenities = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    HotelAmenities = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDT = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -34,7 +35,7 @@ namespace BigBang.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable:false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,6 +50,7 @@ namespace BigBang.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDT = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HotelId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -68,6 +70,7 @@ namespace BigBang.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDT = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HotelId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -89,6 +92,7 @@ namespace BigBang.Migrations
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoomCount = table.Column<int>(type: "int", nullable: false),
                     RoomPrice = table.Column<int>(type: "int", nullable: false),
+                    CreatedDT = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HotelId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -108,8 +112,9 @@ namespace BigBang.Migrations
                     BookingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CheckInDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CheckOut = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDT = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HotelId = table.Column<int>(type: "int", nullable: true),
                     RoomId = table.Column<int>(type: "int", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: true)

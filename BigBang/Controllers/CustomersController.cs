@@ -42,14 +42,14 @@ namespace BigBang.Controllers
         {
             return cus.DeleteCustomer(CustomerId);
         }
-        
+
         [HttpGet("filter")]
         public IEnumerable<Hotel> FilterHotels(string HotelLocation)
         {
             return cus.FilterHotels(HotelLocation);
         }
         [HttpGet("filterbyAmenities")]
-         public IEnumerable<Hotel> FilterHotelsByAmenities(string HotelAmenities)
+        public IEnumerable<Hotel> FilterHotelsByAmenities(string HotelAmenities)
         {
             return cus.FilterHotelsByAmenities(HotelAmenities);
         }
@@ -59,6 +59,12 @@ namespace BigBang.Controllers
         {
 
             return cus.GetRoomCountByRoomIdAndHotelId(RoomId, HotelId);
+        }
+
+        [HttpGet("rooms/price-range")]
+        public IEnumerable<Room> GetRoomsByPriceRange(int minPrice, int maxPrice)
+        {
+            return cus.GetRoomsByPriceRange(minPrice, maxPrice);
         }
 
     }

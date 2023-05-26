@@ -12,6 +12,7 @@ namespace BigBang.Repositories
         public IEnumerable<Hotel> FilterHotels(string HotelLocation);
         public IEnumerable<Hotel> FilterHotelsByAmenities(string HotelAmenities);
         public int GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId);
+        public IEnumerable<Room> GetRoomsByPriceRange(int minPrice, int maxPrice);
 
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BigBang.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20230526081035_HotelReservation")]
+    [Migration("20230526110332_HotelReservation")]
     partial class HotelReservation
     {
         /// <inheritdoc />
@@ -36,11 +36,14 @@ namespace BigBang.Migrations
                     b.Property<DateTime>("BookedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CheckInDate")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CheckOut")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CheckOut")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedDT")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
@@ -70,6 +73,9 @@ namespace BigBang.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
+                    b.Property<string>("CreatedDT")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CustomerEmail")
                         .HasColumnType("nvarchar(max)");
 
@@ -94,6 +100,9 @@ namespace BigBang.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
+                    b.Property<string>("CreatedDT")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EmployeeName")
                         .HasColumnType("nvarchar(max)");
 
@@ -114,6 +123,9 @@ namespace BigBang.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelId"));
+
+                    b.Property<string>("CreatedDT")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HotelAmenities")
                         .HasColumnType("nvarchar(max)");
@@ -136,6 +148,9 @@ namespace BigBang.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
+
+                    b.Property<string>("CreatedDT")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("HotelId")
                         .HasColumnType("int");
