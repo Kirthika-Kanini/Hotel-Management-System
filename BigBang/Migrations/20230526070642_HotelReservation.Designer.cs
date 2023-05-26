@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BigBang.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20230526055132_HotelReservation")]
+    [Migration("20230526070642_HotelReservation")]
     partial class HotelReservation
     {
         /// <inheritdoc />
@@ -24,6 +24,43 @@ namespace BigBang.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BigBang.Models.Booking", b =>
+                {
+                    b.Property<int>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+
+                    b.Property<DateTime>("BookedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckInDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckOut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Bookings");
+                });
 
             modelBuilder.Entity("BigBang.Models.Customer", b =>
                 {
@@ -138,6 +175,27 @@ namespace BigBang.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("BigBang.Models.Booking", b =>
+                {
+                    b.HasOne("BigBang.Models.Customer", "Customer")
+                        .WithMany("Bookings")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("BigBang.Models.Hotel", "Hotel")
+                        .WithMany("Bookings")
+                        .HasForeignKey("HotelId");
+
+                    b.HasOne("BigBang.Models.Room", "Room")
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomId");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("BigBang.Models.Customer", b =>
                 {
                     b.HasOne("BigBang.Models.Hotel", "Hotel")
@@ -165,13 +223,25 @@ namespace BigBang.Migrations
                     b.Navigation("Hotel");
                 });
 
+            modelBuilder.Entity("BigBang.Models.Customer", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
             modelBuilder.Entity("BigBang.Models.Hotel", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("Customers");
 
                     b.Navigation("Employees");
 
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("BigBang.Models.Room", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

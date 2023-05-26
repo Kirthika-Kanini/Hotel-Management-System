@@ -12,5 +12,6 @@ namespace BigBang.Models
         public ICollection<Room>? Rooms { get; set; }
         public ICollection<Employee>? Employees { get; set; }
         public ICollection<Customer>? Customers { get; set; }
+        public ICollection<Booking>? Bookings { get; set; }
     }
 }

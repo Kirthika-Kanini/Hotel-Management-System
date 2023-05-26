@@ -9,7 +9,7 @@ namespace BigBang.Models
         public string? CustomerName { get; set; }
         public string? CustomerEmail { get; set; }
 
-
+        public ICollection<Booking>? Bookings { get; set; }
         public Hotel? Hotel { get; set; }
     }
 }
