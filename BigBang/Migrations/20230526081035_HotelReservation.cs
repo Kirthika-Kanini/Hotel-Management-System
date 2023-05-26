@@ -33,8 +33,8 @@ namespace BigBang.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable:false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable:false)
                 },
                 constraints: table =>
                 {
@@ -88,6 +88,7 @@ namespace BigBang.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoomCount = table.Column<int>(type: "int", nullable: false),
+                    RoomPrice = table.Column<int>(type: "int", nullable: false),
                     HotelId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

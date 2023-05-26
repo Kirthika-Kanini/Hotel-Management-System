@@ -42,5 +42,24 @@ namespace BigBang.Controllers
         {
             return cus.DeleteCustomer(CustomerId);
         }
+        
+        [HttpGet("filter")]
+        public IEnumerable<Hotel> FilterHotels(string HotelLocation)
+        {
+            return cus.FilterHotels(HotelLocation);
+        }
+        [HttpGet("filterbyAmenities")]
+         public IEnumerable<Hotel> FilterHotelsByAmenities(string HotelAmenities)
+        {
+            return cus.FilterHotelsByAmenities(HotelAmenities);
+        }
+
+        [HttpGet("roomcount")]
+        public int GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
+        {
+
+            return cus.GetRoomCountByRoomIdAndHotelId(RoomId, HotelId);
+        }
+
     }
 }

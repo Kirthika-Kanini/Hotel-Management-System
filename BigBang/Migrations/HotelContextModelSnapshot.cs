@@ -143,6 +143,9 @@ namespace BigBang.Migrations
                     b.Property<string>("RoomName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoomPrice")
+                        .HasColumnType("int");
+
                     b.HasKey("RoomId");
 
                     b.HasIndex("HotelId");

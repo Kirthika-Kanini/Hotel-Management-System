@@ -1,72 +1,106 @@
 ﻿using BigBang.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BigBang.Repositories
 {
-    public class EmployeeRepository:IEmployee
+    public class EmployeeRepository : IEmployee
     {
-       
+        private readonly HotelContext _employeeContext;
 
-            private readonly HotelContext _employeeContext;
-            public EmployeeRepository(HotelContext con)
-            {
-                _employeeContext = con;
-            }
+        public EmployeeRepository(HotelContext con)
+        {
+            _employeeContext = con;
+        }
 
-
-
-            public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<Employee> GetEmployees()
+        {
+            try
             {
                 return _employeeContext.Employees.ToList();
             }
-            public Employee GetEmployeesById(int EmployeeId)
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to retrieve employees.", ex);
+            }
+        }
+
+        public Employee GetEmployeesById(int EmployeeId)
+        {
+            try
             {
                 return _employeeContext.Employees.FirstOrDefault(x => x.EmployeeId == EmployeeId);
             }
-
-            public Employee PostEmployee(Employee employee)
+            catch (Exception ex)
             {
-
-                var emp = _employeeContext.Hotels.Find(employee.Hotel.HotelId);
-                employee.Hotel = emp;
-            _employeeContext.Add(employee);
-            _employeeContext.SaveChanges();
-                return employee;
+                throw new Exception("Failed to retrieve employee by ID.", ex);
             }
-
-            public Employee PutEmployee(int EmployeeId, Employee employee)
-            {
-                var emp = _employeeContext.Hotels.Find(employee.Hotel.HotelId);
-                employee.Hotel = emp;
-            _employeeContext.Entry(employee).State = EntityState.Modified;
-            _employeeContext.SaveChangesAsync();
-                return employee;
-            }
-
-            public Employee DeleteEmployee(int EmployeeId)
-            {
-
-                var emp = _employeeContext.Employees.Find(EmployeeId);
-
-
-            _employeeContext.Employees.Remove(emp);
-            _employeeContext.SaveChanges();
-
-                return emp;
-            }
-        public int GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
-        {
-            var count = (from Room in _employeeContext.Rooms
-                             join hotel in _employeeContext.Hotels on Room.Hotel.HotelId equals hotel.HotelId
-                             where Room.RoomId == RoomId && hotel.HotelId == HotelId
-                             select Room.RoomCount).FirstOrDefault();
-
-            return count;
         }
 
-      
+        public Employee PostEmployee(Employee employee)
+        {
+            try
+            {
+                var emp = _employeeContext.Hotels.Find(employee.Hotel.HotelId);
+                employee.Hotel = emp;
+                _employeeContext.Add(employee);
+                _employeeContext.SaveChanges();
+                return employee;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to create employee.", ex);
+            }
+        }
 
+        public Employee PutEmployee(int EmployeeId, Employee employee)
+        {
+            try
+            {
+                var emp = _employeeContext.Hotels.Find(employee.Hotel.HotelId);
+                employee.Hotel = emp;
+                _employeeContext.Entry(employee).State = EntityState.Modified;
+                _employeeContext.SaveChanges();
+                return employee;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update employee.", ex);
+            }
+        }
 
+        public Employee DeleteEmployee(int EmployeeId)
+        {
+            try
+            {
+                var emp = _employeeContext.Employees.Find(EmployeeId);
+                _employeeContext.Employees.Remove(emp);
+                _employeeContext.SaveChanges();
+                return emp;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to delete employee.", ex);
+            }
+        }
+
+        public int GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
+        {
+            try
+            {
+                var count = (from room in _employeeContext.Rooms
+                             join hotel in _employeeContext.Hotels on room.Hotel.HotelId equals hotel.HotelId
+                             where room.RoomId == RoomId && hotel.HotelId == HotelId
+                             select room.RoomCount).FirstOrDefault();
+
+                return count;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get room count by RoomId and HotelId.", ex);
+            }
+        }
     }
 }

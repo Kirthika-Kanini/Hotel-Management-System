@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BigBang.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    [Migration("20230526070642_HotelReservation")]
+    [Migration("20230526081035_HotelReservation")]
     partial class HotelReservation
     {
         /// <inheritdoc />
@@ -145,6 +145,9 @@ namespace BigBang.Migrations
 
                     b.Property<string>("RoomName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomPrice")
+                        .HasColumnType("int");
 
                     b.HasKey("RoomId");
 

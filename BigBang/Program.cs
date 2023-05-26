@@ -19,7 +19,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
-//builder.Services.AddScoped<IHotel, HotelRepository>();
+builder.Services.AddScoped<IHotel, HotelRepository>();
 builder.Services.AddScoped<IRoom, RoomRepository>();
 builder.Services.AddScoped<IEmployee, EmployeeRepository>();
 builder.Services.AddScoped<ICustomer, CustomerRepository>();
