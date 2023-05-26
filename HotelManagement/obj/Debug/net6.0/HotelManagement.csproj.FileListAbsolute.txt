@@ -10,3 +10,5 @@ C:\Users\kirth\source\repos\BigBang\HotelManagement\obj\Debug\net6.0\HotelManage
 C:\Users\kirth\source\repos\BigBang\HotelManagement\obj\Debug\net6.0\refint\HotelManagement.dll
 C:\Users\kirth\source\repos\BigBang\HotelManagement\obj\Debug\net6.0\HotelManagement.pdb
 C:\Users\kirth\source\repos\BigBang\HotelManagement\obj\Debug\net6.0\ref\HotelManagement.dll
+C:\Users\kirth\source\repos\BigBang\HotelManagement\bin\Debug\net6.0\HotelManagement.runtimeconfig.json
+C:\Users\kirth\source\repos\BigBang\HotelManagement\obj\Debug\net6.0\HotelManagement.genruntimeconfig.cache

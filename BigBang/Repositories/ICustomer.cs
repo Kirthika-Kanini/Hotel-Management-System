@@ -11,7 +11,7 @@ namespace BigBang.Repositories
         public Customer DeleteCustomer(int CustomerId);
         public IEnumerable<Hotel> FilterHotels(string HotelLocation);
         public IEnumerable<Hotel> FilterHotelsByAmenities(string HotelAmenities);
-        public string GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId);
+        public string GetRoomCount(string RoomName, int HotelId);
         public IEnumerable<Room> GetRoomsByPriceRange(int minPrice, int maxPrice);
 
     }

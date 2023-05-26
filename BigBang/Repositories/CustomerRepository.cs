@@ -112,13 +112,13 @@ namespace BigBang.Repositories
 
             return filteredHotels.ToList();
         }
-        public string GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
+        public string GetRoomCount(string RoomName, int HotelId)
         {
             try
             {
                 var count = (from room in _customerContext.Rooms
                              join hotel in _customerContext.Hotels on room.Hotel.HotelId equals hotel.HotelId
-                             where room.RoomId == RoomId && hotel.HotelId == HotelId
+                             where room.RoomName == RoomName && hotel.HotelId == HotelId
                              select room.RoomCount).FirstOrDefault();
 
                 return "Number of rooms available are: " + count;

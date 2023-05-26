@@ -805,6 +805,9 @@
         }
       },
       "HotelManagement/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
+        },
         "runtime": {
           "HotelManagement.dll": {}
         }

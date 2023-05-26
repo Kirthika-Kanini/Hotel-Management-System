@@ -57,10 +57,10 @@ namespace BigBang.Controllers
         }
 
         [HttpGet("roomcount")]
-        public string GetRoomCountByRoomIdAndHotelId(int RoomId, int HotelId)
+        public string GetRoomCountByRoomIdAndHotelId(string RoomName, int HotelId)
         {
 
-            return cus.GetRoomCountByRoomIdAndHotelId(RoomId, HotelId);
+            return cus.GetRoomCount(RoomName, HotelId);
         }
 
         [HttpGet("rooms/price-range")]
