@@ -100,7 +100,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to get room count by RoomId and HotelId.", ex);
+                throw new Exception("Failed to get room count by RoomName and HotelId.", ex);
             }
         }
     }
