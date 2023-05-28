@@ -39,40 +39,53 @@ namespace BigBang.Repositories
             }
         }
 
-        
+
 
         public Booking PostBooking(Booking booking)
         {
             try
             {
                 booking.CreatedDT = DateTime.UtcNow.ToString();
-                var b = _bookingContext.Hotels.Find(booking.Hotel.HotelId);
-                booking.Hotel = b;
-                var customer = _bookingContext.Customers.Find(booking.Customer.CustomerId);
-                booking.Customer = customer;
-                var room = _bookingContext.Rooms.Find(booking.Room.RoomId);
-                if (room != null)
-                {
-                    if (room.RoomCount > 0)
-                    {
-                        room.RoomCount--; 
-                        _bookingContext.Entry(room).State = EntityState.Modified; 
 
-                      
-                        booking.Room = room;
-                    }
-                    else
-                    {
-                        throw new Exception("No available rooms for booking.");
-                    }
+                var hotel = _bookingContext.Hotels.Find(booking.Hotel.HotelId);
+                if (hotel == null)
+                {
+                    throw new Exception("Invalid hotel ID.");
+                }
+
+                var customer = _bookingContext.Customers
+                    .Include(c => c.Hotel)
+                    .FirstOrDefault(c => c.CustomerId == booking.Customer.CustomerId && c.Hotel.HotelId == hotel.HotelId);
+                if (customer == null)
+                {
+                    throw new Exception("Customer is not associated with the specified hotel.");
+                }
+
+                var room = _bookingContext.Rooms
+                    .Include(r => r.Hotel)
+                    .FirstOrDefault(r => r.RoomId == booking.Room.RoomId && r.Hotel.HotelId == hotel.HotelId);
+                if (room == null)
+                {
+                    throw new Exception("Room is not associated with the specified hotel.");
+                }
+
+                if (room.RoomCount > 0)
+                {
+                    room.RoomCount--;
+                    _bookingContext.Entry(room).State = EntityState.Modified;
+                    booking.Room = room;
                 }
                 else
                 {
-                    throw new Exception("Invalid room ID.");
+                    throw new Exception("No available rooms for booking.");
                 }
+
+                booking.Hotel = hotel;
+                booking.Customer = customer;
 
                 _bookingContext.Add(booking);
                 _bookingContext.SaveChanges();
+
                 return booking;
             }
             catch (Exception ex)
@@ -80,6 +93,7 @@ namespace BigBang.Repositories
                 throw new Exception("Failed to create booking.", ex);
             }
         }
+
 
 
         public Booking PutBooking(int BookingId, Booking booking)
