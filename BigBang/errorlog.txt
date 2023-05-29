@@ -1,0 +1,30 @@
+Exception occurred at 5/29/2023 8:10:15 AM:
+Message: Booking not found.
+StackTrace:    at BigBang.Repositories.BookingRepository.DeleteBooking(Int32 BookingId) in C:\Users\kirth\source\repos\BigBang\BigBang\Repositories\BookingRepository.cs:line 144
+
+Exception occurred at 5/29/2023 8:13:12 AM:
+Message: Room is not associated with the specified hotel.
+StackTrace:    at BigBang.Repositories.BookingRepository.PostBooking(Booking booking) in C:\Users\kirth\source\repos\BigBang\BigBang\Repositories\BookingRepository.cs:line 73
+
+Exception occurred at 5/29/2023 8:22:42 AM:
+Message: Value cannot be null. (Parameter 'entity')
+StackTrace:    at Microsoft.EntityFrameworkCore.Utilities.Check.NotNull[T](T value, String parameterName)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Remove(TEntity entity)
+   at BigBang.Repositories.EmployeeRepository.DeleteEmployee(Int32 EmployeeId) in C:\Users\kirth\source\repos\BigBang\BigBang\Repositories\EmployeeRepository.cs:line 84
+
+Exception occurred at 5/29/2023 8:29:27 AM:
+Message: Room is not associated with the specified hotel.
+StackTrace:    at BigBang.Repositories.BookingRepository.PostBooking(Booking booking) in C:\Users\kirth\source\repos\BigBang\BigBang\Repositories\BookingRepository.cs:line 73
+
+Exception occurred at 5/29/2023 10:07:15 AM:
+Message: Room is not associated with the specified hotel.
+StackTrace:    at BigBang.Repositories.BookingRepository.PostBooking(Booking booking) in C:\Users\kirth\source\repos\BigBang\BigBang\Repositories\BookingRepository.cs:line 74
+
+Exception occurred at 5/29/2023 10:08:52 AM:
+Message: Invalid hotel ID.
+StackTrace:    at BigBang.Repositories.BookingRepository.PostBooking(Booking booking) in C:\Users\kirth\source\repos\BigBang\BigBang\Repositories\BookingRepository.cs:line 57
+
+Exception occurred at 5/29/2023 10:10:57 AM:
+Message: Customer is not associated with the specified hotel.
+StackTrace:    at BigBang.Repositories.BookingRepository.PostBooking(Booking booking) in C:\Users\kirth\source\repos\BigBang\BigBang\Repositories\BookingRepository.cs:line 66
+

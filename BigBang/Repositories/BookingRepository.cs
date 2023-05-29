@@ -1,4 +1,5 @@
 ﻿using BigBang.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,11 @@ namespace BigBang.Repositories
     public class BookingRepository : IBooking
     {
         private readonly HotelContext _bookingContext;
-
+        private readonly string logFilePath = "errorlog.txt";
         public BookingRepository(HotelContext con)
         {
             _bookingContext = con;
+           
         }
 
         public IEnumerable<Booking> GetBooking()
@@ -23,6 +25,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to retrieve bookings.", ex);
             }
         }
@@ -35,6 +38,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to retrieve booking by ID.", ex);
             }
         }
@@ -58,6 +62,7 @@ namespace BigBang.Repositories
                     .FirstOrDefault(c => c.CustomerId == booking.Customer.CustomerId && c.Hotel.HotelId == hotel.HotelId);
                 if (customer == null)
                 {
+
                     throw new Exception("Customer is not associated with the specified hotel.");
                 }
 
@@ -90,6 +95,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to create booking.", ex);
             }
         }
@@ -108,6 +114,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to update booking.", ex);
             }
         }
@@ -140,7 +147,25 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to delete booking.", ex);
+            }
+        }
+        private void LogException(Exception ex)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    writer.WriteLine($"Exception occurred at {DateTime.UtcNow}:");
+                    writer.WriteLine($"Message: {ex.Message}");
+                    writer.WriteLine($"StackTrace: {ex.StackTrace}");
+                    writer.WriteLine();
+                }
+            }
+            catch
+            {
+                throw new Exception("Unable to create log");
             }
         }
 

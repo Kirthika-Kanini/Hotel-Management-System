@@ -29,7 +29,7 @@ namespace HotelManagement.Repositories
             }
         }
 
-        public Hotel GetHotelById(int HotelId)
+        public Hotel? GetHotelById(int HotelId)
         {
             try
             {

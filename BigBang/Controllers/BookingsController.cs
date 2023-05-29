@@ -32,7 +32,10 @@ namespace BigBang.Controllers
         [HttpPost]
         public Booking PostBooking(Booking booking)
         {
-            return b.PostBooking(booking);
+         
+                return b.PostBooking(booking);
+            
+            
         }
         [HttpPut("{BookingId}")]
         public Booking PutBooking(int BookingId, Booking booking)

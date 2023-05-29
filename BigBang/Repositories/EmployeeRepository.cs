@@ -9,7 +9,7 @@ namespace BigBang.Repositories
     public class EmployeeRepository : IEmployee
     {
         private readonly HotelContext _employeeContext;
-
+        private readonly string logFilePath = "errorlog.txt";
         public EmployeeRepository(HotelContext con)
         {
             _employeeContext = con;
@@ -23,6 +23,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to retrieve employees.", ex);
             }
         }
@@ -35,6 +36,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to retrieve employee by ID.", ex);
             }
         }
@@ -52,6 +54,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to create employee.", ex);
             }
         }
@@ -68,6 +71,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to update employee.", ex);
             }
         }
@@ -83,6 +87,7 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 throw new Exception("Failed to delete employee.", ex);
             }
         }
@@ -92,7 +97,8 @@ namespace BigBang.Repositories
             try
             {
                 var count = (from room in _employeeContext.Rooms
-                             join hotel in _employeeContext.Hotels on room.Hotel.HotelId equals hotel.HotelId
+                             join hotel in _employeeContext.Hotels on room.Hotel.HotelId equals
+                             hotel.HotelId
                              where room.RoomId == RoomId && hotel.HotelId == HotelId
                              select room.RoomCount).FirstOrDefault();
 
@@ -100,8 +106,28 @@ namespace BigBang.Repositories
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to get room count by RoomName and HotelId.", ex);
+                LogException(ex);
+                throw new Exception("Failed to get room count by RoomId and HotelId.", ex);
             }
         }
+        private void LogException(Exception ex)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    writer.WriteLine($"Exception occurred at {DateTime.UtcNow}:");
+                    writer.WriteLine($"Message: {ex.Message}");
+                    writer.WriteLine($"StackTrace: {ex.StackTrace}");
+                    writer.WriteLine();
+                }
+            }
+            catch
+            {
+                LogException(ex);
+                throw new Exception("Unable to create log");
+            }
+        }
+
     }
 }
